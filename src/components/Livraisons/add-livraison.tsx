@@ -40,7 +40,7 @@ const AddLivraison = (props: any) => {
       .then((repos) => {
         console.log("After posted Livraisons object")
         console.log(repos)
-        // window.location.reload();
+        window.location.reload();
       });
   }
 
