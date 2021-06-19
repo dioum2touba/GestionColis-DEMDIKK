@@ -1,0 +1,19 @@
+// Actual modal
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    {{width: 170%}}; 
+    color: $modal-content-color;
+    pointer-events: auto;
+    background-color: $modal-content-bg;
+    background-clip: padding-box;
+    border: $modal-content-border-width solid $modal-content-border-color;
+    @include border-radius($modal-content-border-radius);
+    @include box-shadow($modal-content-box-shadow-xs);
+    outline: 0;
+  }
+
+  fieldset {
+    border: 0.5px solid gray;
+  }

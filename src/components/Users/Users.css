@@ -1,0 +1,7 @@
+.PasswordCompareError {
+    color: red;
+}
+.PasswordCompareSuccess {
+    color: green;
+}
+
