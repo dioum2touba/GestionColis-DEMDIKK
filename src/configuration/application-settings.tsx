@@ -1,3 +1,3 @@
 export class ApplicationSettings {
-    public static readonly API_URL = 'https://localhost:9001/api/'
+    public static readonly API_URL = 'http://35.180.231.169/ColisDD/api/'
  }
