@@ -19,7 +19,7 @@ const LoginForm = (props: any) => {
     formdata.append("client_secret", "secret");
     formdata.append("password", password);
     const result = await HandleLogin(login, password);
-    event.preventDefault();
+    // event.preventDefault();
     console.log(result)
    // props.history.push('/');
   }
@@ -55,7 +55,7 @@ const LoginForm = (props: any) => {
           <div className="card-body">
             <p className="login-box-msg">Sign in to start your session</p>
 
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}> */}
               <div className="input-group mb-3">
                 <input
                   type="email"
@@ -93,12 +93,12 @@ const LoginForm = (props: any) => {
                   </div>
                 </div>
                 <div className="col-4">
-                  <button type="submit" className="btn btn-primary btn-block">
+                  <button type="submit" onClick={(event: any) => handleSubmit(event)} className="btn btn-primary btn-block">
                     Sign In
                   </button>
                 </div>
               </div>
-            </form>
+            {/* </form> */}
 
             {/* <div className="social-auth-links text-center mt-2 mb-3">
               <Link to="#" className="btn btn-block btn-primary">

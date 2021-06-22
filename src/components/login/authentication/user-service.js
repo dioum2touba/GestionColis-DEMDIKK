@@ -32,6 +32,9 @@ function login(username, password) {
             AuthenticationService.authenticate(user, user);
             AuthenticationService.setUserId(user.data.id);
             return user;
+        }).catch(error => {
+            console.log("error");
+            console.log(error);
         });
 }
 
