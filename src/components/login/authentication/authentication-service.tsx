@@ -3,17 +3,19 @@ import { LoginConsts } from './login-consts';
 
 export class AuthenticationService {
     
-    public static authenticate(authenticationResult: AuthenticationResult, login: string) : void {
-        window.localStorage.setItem(LoginConsts.ACCESS_TOKEN_KEY, authenticationResult.JWToken);
-        window.localStorage.setItem(LoginConsts.USERNAME_KEY, login);
+    public static authenticate(login: any) : void {
+        window.localStorage.setItem(LoginConsts.ACCESS_TOKEN_KEY, login.data.jwToken);
+        window.localStorage.setItem(LoginConsts.USERNAME_KEY, login.data);
+        AuthenticationService.setUserId(login.data.id);
+        console.log(login.data)
     }
 
     public static isAuthenticated() : boolean {
-        return window.localStorage.getItem(LoginConsts.USER_ID) != null;
+        return window.localStorage.getItem(LoginConsts.USERNAME_KEY) != null;
     }
 
     public static getUserId() : string | null {
-        return localStorage.getItem(LoginConsts.USER_ID);
+        return localStorage.getItem(LoginConsts.USERNAME_KEY);
     }
 
     public static getUsername() : string | null {
@@ -25,7 +27,7 @@ export class AuthenticationService {
     }
 
     public static logOff() : void {
-        window.localStorage.removeItem(LoginConsts.USER_ID)
+        window.localStorage.removeItem(LoginConsts.USERNAME_KEY)
         window.localStorage.removeItem(LoginConsts.ACCESS_TOKEN_KEY);
         document.location.href = '/';
     }

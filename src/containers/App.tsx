@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import Dashboard from '../components/dashboard/Dashboard';
-import { LoginForm } from '../components/login/login-form';
+import LoginForm from '../components/login/login-form';
 import { AuthenticationService } from '../components/login/authentication/authentication-service';
 import Agences from '../components/Agences/Agences';
 import Regions from './../components/Regions/Regions';

@@ -9,7 +9,7 @@ export const userService = {
     register,
     getAll,
     getById,
-    update, 
+    update,
     isAuthenticated,
     delete: _delete
 };
@@ -20,18 +20,18 @@ function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 'Email':username, 'Password': password })
+        body: JSON.stringify({ 'Email': username, 'Password': password })
     };
-    
+
     return fetch(`${ApplicationSettings.API_URL}Account/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             window.localStorage.setItem(LoginConsts.USERNAME, JSON.stringify(user));
 
-            AuthenticationService.authenticate(user, login);
+            AuthenticationService.authenticate(user, user);
             AuthenticationService.setUserId(user.data.id);
-            document.location.href = '/';
+            return user;
         });
 }
 
@@ -76,7 +76,7 @@ function register(user) {
 function update(user) {
     const requestOptions = {
         method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: {...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     }
 

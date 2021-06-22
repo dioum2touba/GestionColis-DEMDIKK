@@ -6,20 +6,32 @@ type LoginFormProps = {
   onSuccessfulLoginEvent(): void;
 };
 
-export function LoginForm(props: LoginFormProps) {
+const LoginForm = (props: any) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   // const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     var formdata = new FormData();
     formdata.append("client_id", "ro.client");
     formdata.append("grant_type", "password");
     formdata.append("username", login);
     formdata.append("client_secret", "secret");
     formdata.append("password", password);
-    userService.login(login, password);
+    const result = await HandleLogin(login, password);
     event.preventDefault();
+    console.log(result)
+   // props.history.push('/');
+  }
+
+  async function HandleLogin(login: any, password: any) {
+    try {
+      const result = await userService.login(login, password);
+      return result;
+    }
+    catch (rejectedValue) {
+      // …
+    }
   }
 
   function handleLoginChange(event: ChangeEvent<HTMLInputElement>) {
@@ -112,3 +124,5 @@ export function LoginForm(props: LoginFormProps) {
     </div>
   );
 }
+
+export default LoginForm;
