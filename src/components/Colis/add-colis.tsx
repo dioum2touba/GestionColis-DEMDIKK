@@ -7,7 +7,7 @@ import { AuthenticationService } from './../login/authentication/authentication-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddColis = () => {
+const AddColis = (props: any) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -77,7 +77,7 @@ const AddColis = () => {
       .then((repos) => {
         console.log("After posted colis object")
         console.log(repos)
-        window.location.reload();
+        props.history.push('/touslescolis');
       });
   }
 

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
+
+  useEffect(() => {
+    console.log("Dashboard")
+  }, [])
+
   return (
     <>
       {/* <!-- Small boxes (Stat box) --> */}

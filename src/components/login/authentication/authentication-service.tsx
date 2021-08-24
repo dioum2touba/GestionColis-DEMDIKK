@@ -4,6 +4,7 @@ import { LoginConsts } from './login-consts';
 export class AuthenticationService {
     
     public static authenticate(login: any) : void {
+        console.log(login);
         window.localStorage.setItem(LoginConsts.ACCESS_TOKEN_KEY, login.data.jwToken);
         window.localStorage.setItem(LoginConsts.USERNAME_KEY, login.data);
         AuthenticationService.setUserId(login.data.id);

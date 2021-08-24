@@ -1,27 +1,69 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { userService } from "./authentication/user-service";
 import { Link } from 'react-router-dom';
+import { ApplicationSettings } from "../../configuration/application-settings";
+import { AuthenticationService } from "./authentication/authentication-service";
+import { LoginConsts } from "./authentication/login-consts";
 
 type LoginFormProps = {
   onSuccessfulLoginEvent(): void;
 };
+
+const handleResponse = (response: any) => {
+  return response.text().then((text: any) => {
+      const data = text && JSON.parse(text);
+      if (!response.ok) {
+          if (response.status === 401) {
+              // auto logout if 401 response returned from api
+              // logout();
+              window.location.reload();
+          }
+
+          const error = (data && data.message) || response.statusText;
+          return Promise.reject(error);
+      }
+
+      return data;
+  });
+}
 
 const LoginForm = (props: any) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   // const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     var formdata = new FormData();
     formdata.append("client_id", "ro.client");
     formdata.append("grant_type", "password");
     formdata.append("username", login);
     formdata.append("client_secret", "secret");
     formdata.append("password", password);
-    const result = await HandleLogin(login, password);
+    // const result = HandleLogin(login, password);
     // event.preventDefault();
-    console.log(result)
-   // props.history.push('/');
+    // console.log(result);
+    
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 'Email': login, 'Password': password })
+  };
+
+  fetch(`${ApplicationSettings.API_URL}Account/authenticate`, requestOptions)
+      .then((handleResponse))
+      .then((user:any) => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          window.localStorage.setItem(LoginConsts.USERNAME, JSON.stringify(user));
+
+          AuthenticationService.authenticate(user);
+          AuthenticationService.setUserId(user.data.id);
+          props.history.push("/");
+          window.location.reload()
+      }).catch(error => {
+          console.log("error");
+          console.log(error);
+      });
   }
 
   async function HandleLogin(login: any, password: any) {

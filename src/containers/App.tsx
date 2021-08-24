@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import Dashboard from '../components/dashboard/Dashboard';
 import LoginForm from '../components/login/login-form';
@@ -48,6 +48,7 @@ function App() {
               <Route path="/creerLivraion" component={CreerLivraion} />
               <Route path="/receptionne" component={Receptionne} />
               <Route path="/users" component={Users} />
+              <Route path="/login" component={LoginForm} />
               <Route path="/clients" component={Clients} />
               <Route path="/roles" component={Roles} />
               <Route path="/prixVoyageRegions" component={PrixVoyageRegions} />
@@ -60,9 +61,11 @@ function App() {
           </Layout>) : (<Switch><Route path="/" exact component={LoginForm} /></Switch>)
 
   return (
-    <BrowserRouter>
+   <>
+    <Router>
       { contentHome }
-    </BrowserRouter>
+    </Router>
+   </>
   );
 }
 
